@@ -17,7 +17,10 @@ namespace blogpessoal
 
             // Add services to the container.
 
-            builder.Services.AddControllers();//Adiciona o Serviço Controllers, através do Método AddControllers(), responsável por gerenciar as Classes Controladoras da aplicação e os respectivos endpoints (rotas), responsáveis por acessar os Métodos de cada recurso da aplicação.
+            builder.Services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });//Adiciona o Serviço Controllers, através do Método AddControllers(), responsável por gerenciar as Classes Controladoras da aplicação e os respectivos endpoints (rotas), responsáveis por acessar os Métodos de cada recurso da aplicação.
 
             // COnexão com o Banco de Dados
 
@@ -28,9 +31,11 @@ namespace blogpessoal
             // registrar a Validação da Entidades
 
             builder.Services.AddTransient<IValidator<Postagem>, PostagemValidator>();
+            builder.Services.AddTransient<IValidator<Tema>, TemaValidator>();
 
             // Registrar as Classesde Serviço
             builder.Services.AddScoped<IPostagemService, PostagemService>();
+            builder.Services.AddScoped<ITemaService, TemaService>();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
