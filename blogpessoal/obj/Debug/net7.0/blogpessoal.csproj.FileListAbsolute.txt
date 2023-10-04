@@ -79,3 +79,5 @@ C:\Users\LENOVO\Desktop\aspnet\blogpessoal\blogpessoal\obj\Debug\net7.0\refint\b
 C:\Users\LENOVO\Desktop\aspnet\blogpessoal\blogpessoal\obj\Debug\net7.0\blogpessoal.pdb
 C:\Users\LENOVO\Desktop\aspnet\blogpessoal\blogpessoal\obj\Debug\net7.0\blogpessoal.genruntimeconfig.cache
 C:\Users\LENOVO\Desktop\aspnet\blogpessoal\blogpessoal\obj\Debug\net7.0\ref\blogpessoal.dll
+C:\Users\LENOVO\Desktop\aspnet\blogpessoal\blogpessoal\bin\Debug\net7.0\BCrypt.Net-Core.dll
+C:\Users\LENOVO\Desktop\aspnet\blogpessoal\blogpessoal\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
