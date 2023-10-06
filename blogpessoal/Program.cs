@@ -8,9 +8,7 @@ using blogpessoal.validator;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.Win32;
 using System.Text;
 
 namespace blogpessoal
@@ -26,6 +24,7 @@ namespace blogpessoal
             builder.Services.AddControllers().AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
             });//Adiciona o Serviço Controllers, através do Método AddControllers(), responsável por gerenciar as Classes Controladoras da aplicação e os respectivos endpoints (rotas), responsáveis por acessar os Métodos de cada recurso da aplicação.
 
             // COnexão com o Banco de Dados
@@ -104,8 +103,10 @@ namespace blogpessoal
 
             // inicializa o CORS
             app.UseCors("MyPolicy");
-            app.UseAuthorization();
+           
             app.UseAuthentication();
+           
+            app.UseAuthorization();
 
             app.MapControllers();
 
