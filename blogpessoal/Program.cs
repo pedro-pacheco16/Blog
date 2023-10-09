@@ -20,7 +20,7 @@ namespace blogpessoal
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);//Cria a vari·vel que receber· uma nova aplicaÁ„o WEB, criada pelo MÈtodo CreateBuilder(), da Classe WebApplication
+            var builder = WebApplication.CreateBuilder(args);//Cria a vari√°vel que receber√° uma nova aplica√ß√£o WEB, criada pelo M√©todo CreateBuilder(), da Classe WebApplication
 
             // Add services to the container.
 
@@ -28,10 +28,10 @@ namespace blogpessoal
             {
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
-            });//Adiciona o ServiÁo Controllers, atravÈs do MÈtodo AddControllers(), respons·vel por gerenciar as Classes Controladoras da aplicaÁ„o e os respectivos endpoints (rotas), respons·veis por acessar os MÈtodos de cada recurso da aplicaÁ„o.
+            });//Adiciona o Servi√ßo Controllers, atrav√©s do M√©todo AddControllers(), respons√°vel por gerenciar as Classes Controladoras da aplica√ß√£o e os respectivos endpoints (rotas), respons√°veis por acessar os M√©todos de cada recurso da aplica√ß√£o.
 
-            // COnex„o com o Banco de Dados
-            if (builder.Configuration["Enviroment: Start"] == "PROD")
+            // COnex√£o com o Banco de Dados
+            if (builder.Configuration["Enviroment:Start"] == "PROD")
             {
                 builder.Configuration.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("secrets.json");
 
@@ -47,13 +47,13 @@ namespace blogpessoal
 
                 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
             }
-            // registrar a ValidaÁ„o da Entidades
+            // registrar a Valida√ß√£o da Entidades
 
             builder.Services.AddTransient<IValidator<Postagem>, PostagemValidator>();
             builder.Services.AddTransient<IValidator<Tema>, TemaValidator>();
             builder.Services.AddTransient<IValidator<User>, UserValidator>();
 
-            // Registrar as Classesde ServiÁo
+            // Registrar as Classesde Servi√ßo
             builder.Services.AddScoped<IPostagemService, PostagemService>();
             builder.Services.AddScoped<ITemaService, TemaService>();
             builder.Services.AddScoped<IUserService, UserService>();
@@ -104,21 +104,21 @@ namespace blogpessoal
                 options.AddSecurityDefinition("JWT", new OpenApiSecurityScheme()
                 {
                     In = ParameterLocation.Header,
-                    Description = "Digite um Token V·lido",
+                    Description = "Digite um Token V√°lido",
                     Name = "Authorization",
                     Type = SecuritySchemeType.Http,
                     BearerFormat = "JWT",
                     Scheme = "Bearer"
                 });
 
-                // adicionar a indicaÁ„o de endpoint protegido
+                // adicionar a indica√ß√£o de endpoint protegido
                 options.OperationFilter<AuthResponsesOperationFilter>();
             });
 
             //adicionar o fluent validation no swagger
             builder.Services.AddFluentValidationRulesToSwagger();
 
-            //ConfiguraÁ„o do CORS
+            //Configura√ß√£o do CORS
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy(name: "MyPolicy",
@@ -129,7 +129,7 @@ namespace blogpessoal
                         .AllowAnyHeader();
                     });
             });
-            var app = builder.Build();// Cria uma vari·vel chamada app, que receber· a aplicaÁ„o WEB, criada pelo MÈtodo CreateBuilder(), inicializada com todas as configuraÁıes efetuadas acima, atravÈs do MÈtodo Build().
+            var app = builder.Build();// Cria uma vari√°vel chamada app, que receber√° a aplica√ß√£o WEB, criada pelo M√©todo CreateBuilder(), inicializada com todas as configura√ß√µes efetuadas acima, atrav√©s do M√©todo Build().
 
             // Criar o banco de dados e as tabelas
 
@@ -144,7 +144,7 @@ namespace blogpessoal
             ///{
             app.UseSwagger();
 
-            //Swagger Como P·gina Inicial na Nuvem
+            //Swagger Como P√°gina Inicial na Nuvem
 
             if (app.Environment.IsProduction())
             {
