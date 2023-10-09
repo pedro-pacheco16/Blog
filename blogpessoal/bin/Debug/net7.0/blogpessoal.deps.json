@@ -10,6 +10,7 @@
         "dependencies": {
           "BCrypt.Net-Core": "1.6.0",
           "FluentValidation": "11.7.1",
+          "MicroElements.Swashbuckle.FluentValidation": "5.7.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.11",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "7.0.11",
           "Microsoft.AspNetCore.OpenApi": "7.0.9",
@@ -78,6 +79,18 @@
           "lib/net6.0/Humanizer.dll": {
             "assemblyVersion": "2.14.0.0",
             "fileVersion": "2.14.1.48190"
+          }
+        }
+      },
+      "MicroElements.Swashbuckle.FluentValidation/5.7.0": {
+        "dependencies": {
+          "FluentValidation": "11.7.1",
+          "Swashbuckle.AspNetCore.SwaggerGen": "6.5.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/MicroElements.Swashbuckle.FluentValidation.dll": {
+            "assemblyVersion": "5.7.0.0",
+            "fileVersion": "5.7.0.0"
           }
         }
       },
@@ -712,6 +725,13 @@
       "sha512": "sha512-lQKvtaTDOXnoVJ20ibTuSIOf2i0uO0MPbDhd1jm238I+U/2ZnRENj0cktKZhtchBMtCUSRQ5v4xBCUbKNmyVMw==",
       "path": "humanizer.core/2.14.1",
       "hashPath": "humanizer.core.2.14.1.nupkg.sha512"
+    },
+    "MicroElements.Swashbuckle.FluentValidation/5.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cRp+pFKMjxyw1SfqbRuB1ufr6yUWq5RBmIu0Ff4Kf/DbUZpCAmilXNStjrARQXrJqJCFs55Z+eMhtOFADxvpEw==",
+      "path": "microelements.swashbuckle.fluentvalidation/5.7.0",
+      "hashPath": "microelements.swashbuckle.fluentvalidation.5.7.0.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Authentication.JwtBearer/7.0.11": {
       "type": "package",

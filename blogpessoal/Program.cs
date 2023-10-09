@@ -1,3 +1,4 @@
+using blogpessoal.Configuration;
 using blogpessoal.Data;
 using blogpessoal.model;
 using blogpessoal.Security;
@@ -6,9 +7,11 @@ using blogpessoal.Service;
 using blogpessoal.Service.Implements;
 using blogpessoal.validator;
 using FluentValidation;
+using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Text;
 
 namespace blogpessoal
@@ -28,11 +31,25 @@ namespace blogpessoal
             });//Adiciona o Serviço Controllers, através do Método AddControllers(), responsável por gerenciar as Classes Controladoras da aplicação e os respectivos endpoints (rotas), responsáveis por acessar os Métodos de cada recurso da aplicação.
 
             // COnexão com o Banco de Dados
+            if (builder.Configuration["Enviroment: Start"] == "PROD")
+            {
+                builder.Configuration.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("secrets.json");
 
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+                var connectionString = builder.Configuration.GetConnectionString("ProdConnection");
 
-            builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+                builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 
+
+            }
+            else
+            {
+
+
+
+                var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+                builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+            }
             // registrar a Validação da Entidades
 
             builder.Services.AddTransient<IValidator<Postagem>, PostagemValidator>();
@@ -67,13 +84,44 @@ namespace blogpessoal
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();// Adiciona o Serviço EndpointsApiExplorer, através do Método AddEndpointsApiExplorer(), responsável por registrar os endpoints(rotas) da aplicação, permitindo que eles sejam expostos(acessíveis).
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Projeto Blog Pessoal",
+                    Description = "Projeto Blog Pessoal",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Pedro Pacheco",
+                        Email = "pedroaugustopacheco16@gmail.com",
+                        Url = new Uri("https://github.com/pedro-pacheco16")
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Github",
+                        Url = new Uri("https://github.com/pedro-pacheco16")
+                    }
+                });
 
-            //Adiciona o Serviço SwaggerGen, através do Método AddSwaggerGen(), responsável por gerar a documentação da API através do Swagger.
+                options.AddSecurityDefinition("JWT", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Digite um Token Válido",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "Bearer"
+                });
 
+                // adicionar a indicação de endpoint protegido
+                options.OperationFilter<AuthResponsesOperationFilter>();
+            });
 
-
-            //Configuração do CORS é um mecanismo de segurança usado pelos navegadores para permitir ou bloquear requisições de recursos entre diferentes origens (domínios).
+                //adicionar o fluent validation no swagger
+                builder.Services.AddFluentValidationRulesToSwagger();
+            
+            //Configuração do CORS
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy(name: "MyPolicy",
@@ -95,11 +143,25 @@ namespace blogpessoal
             }
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
+            //if (app.Environment.IsDevelopment())
+            ///{
                 app.UseSwagger();
-                app.UseSwaggerUI();
+
+            //Swagger Como Página Inicial na Nuvem
+
+            if (app.Environment.IsProduction())
+            {
+                app.UseSwaggerUI(options =>
+                {
+
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Blog Pessoal - v1");
+                    options.RoutePrefix = string.Empty;
+
+                });
+
             }
+
+            //}
 
             // inicializa o CORS
             app.UseCors("MyPolicy");
