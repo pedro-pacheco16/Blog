@@ -11,22 +11,22 @@ namespace blogpessoal.Configuration
             if (!context.MethodInfo.GetCustomAttributes(true).Any(options => options is AllowAnonymousAttribute))
             {
                 operation.Security = new List<OpenApiSecurityRequirement>
+            {
+                new OpenApiSecurityRequirement
                 {
-                    new OpenApiSecurityRequirement
                     {
+                        new OpenApiSecurityScheme
                         {
-                            new OpenApiSecurityScheme
+                            Reference = new OpenApiReference
                             {
-                                Reference = new OpenApiReference
-                                {
-                                    Type = ReferenceType.SecurityScheme,
-                                    Id = "JWT"
-                                }
-                            },
-                            Array.Empty<string>()
-                        }
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "JWT"
+                            }
+                        },
+                        Array.Empty<string>()
                     }
-                };
+                }
+            };
             }
         }
     }

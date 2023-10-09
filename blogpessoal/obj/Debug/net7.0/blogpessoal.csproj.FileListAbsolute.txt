@@ -82,3 +82,8 @@ C:\Users\LENOVO\Desktop\aspnet\blogpessoal\blogpessoal\obj\Debug\net7.0\ref\blog
 C:\Users\LENOVO\Desktop\aspnet\blogpessoal\blogpessoal\bin\Debug\net7.0\BCrypt.Net-Core.dll
 C:\Users\LENOVO\Desktop\aspnet\blogpessoal\blogpessoal\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\LENOVO\Desktop\aspnet\blogpessoal\blogpessoal\bin\Debug\net7.0\MicroElements.Swashbuckle.FluentValidation.dll
+C:\Users\LENOVO\Desktop\aspnet\blogpessoal\blogpessoal\bin\Debug\net7.0\Npgsql.dll
+C:\Users\LENOVO\Desktop\aspnet\blogpessoal\blogpessoal\bin\Debug\net7.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\LENOVO\Desktop\aspnet\blogpessoal\blogpessoal\bin\Debug\net7.0\Scrutor.dll
+C:\Users\LENOVO\Desktop\aspnet\blogpessoal\blogpessoal\bin\Debug\net7.0\Swashbuckle.AspNetCore.Filters.dll
+C:\Users\LENOVO\Desktop\aspnet\blogpessoal\blogpessoal\bin\Debug\net7.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll

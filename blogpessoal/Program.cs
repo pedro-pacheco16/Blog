@@ -43,9 +43,6 @@ namespace blogpessoal
             }
             else
             {
-
-
-
                 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
                 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
@@ -104,7 +101,7 @@ namespace blogpessoal
                     }
                 });
 
-                options.AddSecurityDefinition("JWT", new OpenApiSecurityScheme
+                options.AddSecurityDefinition("JWT", new OpenApiSecurityScheme()
                 {
                     In = ParameterLocation.Header,
                     Description = "Digite um Token Válido",
@@ -118,9 +115,9 @@ namespace blogpessoal
                 options.OperationFilter<AuthResponsesOperationFilter>();
             });
 
-                //adicionar o fluent validation no swagger
-                builder.Services.AddFluentValidationRulesToSwagger();
-            
+            //adicionar o fluent validation no swagger
+            builder.Services.AddFluentValidationRulesToSwagger();
+
             //Configuração do CORS
             builder.Services.AddCors(options =>
             {
@@ -145,7 +142,7 @@ namespace blogpessoal
             // Configure the HTTP request pipeline.
             //if (app.Environment.IsDevelopment())
             ///{
-                app.UseSwagger();
+            app.UseSwagger();
 
             //Swagger Como Página Inicial na Nuvem
 
@@ -162,12 +159,12 @@ namespace blogpessoal
             }
 
             //}
-
+            app.UseSwaggerUI();
             // inicializa o CORS
             app.UseCors("MyPolicy");
-           
+
             app.UseAuthentication();
-           
+
             app.UseAuthorization();
 
             app.MapControllers();
