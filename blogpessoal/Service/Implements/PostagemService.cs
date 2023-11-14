@@ -27,7 +27,8 @@ namespace blogpessoal.Service.Implements
             {
                 var postagem= await _context.Postagens
                     .Include(p => p.Tema)
-                    .FirstAsync(i => 1d == id);
+                    .Include(p => p.Usuario)
+                    .FirstAsync(p => p.Id == id);
 
                 return postagem;
             }

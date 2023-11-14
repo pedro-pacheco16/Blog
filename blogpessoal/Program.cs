@@ -31,7 +31,7 @@ namespace blogpessoal
             });//Adiciona o Serviço Controllers, através do Método AddControllers(), responsável por gerenciar as Classes Controladoras da aplicação e os respectivos endpoints (rotas), responsáveis por acessar os Métodos de cada recurso da aplicação.
 
             // COnexão com o Banco de Dados
-            if (builder.Configuration["Enviroment: Start"] == "PROD")
+            if (builder.Configuration["Enviroment:Start"] == "PROD")
             {
                 builder.Configuration.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("secrets.json");
 
