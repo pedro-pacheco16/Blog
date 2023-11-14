@@ -26,8 +26,10 @@ namespace blogpessoal.Service.Implements
             try
             {
                 var Usuario = await _context.Users
-                    .Include(u => u.Postagem)
-                    .FirstAsync(i => i.Id == id);
+                    .Include(p => p.Tema)
+                    .Include(p => p.Usuario)
+                    .FirstAsync(p => p.Id == id);
+
 
                 Usuario.Senha = "";
 
