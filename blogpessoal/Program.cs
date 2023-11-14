@@ -20,7 +20,7 @@ namespace blogpessoal
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);//Cria a variável que receberá uma nova aplicação WEB, criada pelo Método CreateBuilder(), da Classe WebApplication
+            var builder = WebApplication.CreateBuilder(args);//Cria a variavel que recebera� uma nova aplica��o WEB, criada pelo M�todo CreateBuilder(), da Classe WebApplication
 
             // Add services to the container.
 
@@ -30,13 +30,11 @@ namespace blogpessoal
                 options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
             });//Adiciona o Serviço Controllers, através do Método AddControllers(), responsável por gerenciar as Classes Controladoras da aplicação e os respectivos endpoints (rotas), responsáveis por acessar os Métodos de cada recurso da aplicação.
 
-<<<<<<< HEAD
+
             // COnex�o com o Banco de Dados
-=======
-            // COnexão com o Banco de Dados
->>>>>>> bd686cbe661b352c07d0c1fac637e0e8c2627cd2
             if (builder.Configuration["Enviroment:Start"] == "PROD")
             {
+                // Conex�o com o PostgresSQL - Nuvem
                 builder.Configuration.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("secrets.json");
 
                 var connectionString = builder.Configuration.GetConnectionString("ProdConnection");
@@ -51,18 +49,20 @@ namespace blogpessoal
 
                 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
             }
-            // registrar a Validação da Entidades
+            // registrar a Valida��o da Entidades
 
             builder.Services.AddTransient<IValidator<Postagem>, PostagemValidator>();
             builder.Services.AddTransient<IValidator<Tema>, TemaValidator>();
             builder.Services.AddTransient<IValidator<User>, UserValidator>();
 
-            // Registrar as Classesde Serviço
+            // Registrar as Classes Service
             builder.Services.AddScoped<IPostagemService, PostagemService>();
             builder.Services.AddScoped<ITemaService, TemaService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
 
+
+            // Adicionar a Valida��o do Token JWT
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -108,15 +108,15 @@ namespace blogpessoal
                 options.AddSecurityDefinition("JWT", new OpenApiSecurityScheme()
                 {
                     In = ParameterLocation.Header,
-                    Description = "Digite um Token Válido",
+                    Description = "Digite um Token Valido",
                     Name = "Authorization",
                     Type = SecuritySchemeType.Http,
                     BearerFormat = "JWT",
                     Scheme = "Bearer"
                 });
 
-                // adicionar a indicação de endpoint protegido
-                options.OperationFilter<AuthResponsesOperationFilter>();
+             // adicionar a indicação de endpoint protegido
+             options.OperationFilter<AuthResponsesOperationFilter>();
             });
 
             //adicionar o fluent validation no swagger
